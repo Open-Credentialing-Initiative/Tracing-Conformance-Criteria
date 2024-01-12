@@ -13,7 +13,7 @@
   <meta http-equiv=" Content-Type" content="text/html;charset=utf-8" />
 
   <title>Tracing Integration Conformance Criteria</title>
-  <h2 id="subtitle">DRAFT</h2>
+  <h2 id="subtitle">v1.0.0</h2>
   
   <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
   <script type="text/javascript" class="remove">
@@ -21,7 +21,7 @@
       specStatus: 'base',
       latestVersion: "https://open-credentialing-initiative.github.io/Tracing-Conformance-Criteria/",
       shortName: 'Tracing Integration Conformance Criteria',
-      publishDate: "PUBLISH_DATE",
+      publishDate: "11 JAN 2024",
       license: 'w3c-software-doc',
       logos: [],
       lint: {
@@ -64,7 +64,7 @@
           key: "Document Status",
           data: [
             {
-              value: "Draft",
+              value: "Approved",
             },
           ],
         },
@@ -84,7 +84,7 @@
 </head>
 
 <body>
-  <p class="copyright">Copyright © 2023 Named editors. Contributors to the Open Credentialing Initiative.</p>
+  <p class="copyright">Copyright © 2024 Named editors. Contributors to the Open Credentialing Initiative.</p>
   <!-- sotd --> 
   <section>
     <h2>Status of this Document</h2>
@@ -93,14 +93,15 @@
       time of its publication. Other documents may supersede this
       document.
     </p>
-    <p>This is a public OCI Working Draft for review by OCI
-      Members and other interested parties. This section describes the
-      status of this document at the time of its publication. It is a draft
-      document and may be updated, replaced, or obsoleted by other documents
-      at any time. It is inappropriate to use OCI Working Drafts as
-      reference material or to cite as other than "work in progress". A
-      list of current OCI Recommendations and other technical documents can
-      be found in <a href="https://github.com/Open-Credentialing-Initiative">OCI's GitHub repositories</a>.
+    <p>This is a living document developed by OCl's Founding Members with input
+      from other OCI Charter Members, DSCSA Trading Partners, Authorities, Solution
+      Providers, Associations, Standards Bodies and others interested in
+      implementing and contributing to the betterment of the W3C Verifiable
+      Credentials architecture piloted by the DSCSA Pilot. It is
+      anticipated that the contents of this document will be reviewed and
+      updated to address feedback related to compliance, business operations,
+      W3C and GS1 Standards, interoperability, changing legislation,
+      regulations, and policy.
     </p>
   </section>
  <!-- Abstract -->
@@ -127,7 +128,7 @@
     <h2>General Terms and Abbreviations</h2>
         <ul>
           <li><dfn>Credential</dfn>: A digital assertion containing a set of claims (e.g. about a State license or FDA Establishment Identifier) made by an entity about itself or another entity. Credentials are a subset of identity data.</li>
-          <li><dfn>corrUUID</dfn> (Correlation Universally Unique Identifier): A unique ID for a set of transactions.</li>
+          <li><dfn>corrUUID</dfn> (Correlation Universally Unique Identifier): A unique ID for a set of transactions. In the context of Tracing, the TIRequestID and TIResponseID take the form of corrUUIDs.</li>
           <li><dfn>Digital wallet</dfn>: Software that manages enterprise identities via decentralized identifiers (DID) and Verifiable Credentials.</li>
           <li><dfn><abbr title="Drug Supply Chain Security Act">DSCSA</abbr></dfn> (Drug Supply Chain Security Act): An act of the U.S. Congress. Find more information on the <a href="https://www.fda.gov/drugs/drug-supply-chain-integrity/drug-supply-chain-security-act-dscsa">FDA website</a>.</li>           
           <li><dfn>Verifiable Presentation</dfn>: A digital presentation that is created from Verifiable Credential data in order to be shared with a verifier.</li>        
@@ -136,7 +137,7 @@
   <!-- T&C -->  
   <section>
     <h2>Wallet API Integration and Authentication</h2>
-    <p>In accordance with the <a href="https://open-credentialing-initiative.github.io/Digital-Wallet-Conformance-Criteria/latest/">Digital Wallet Conformance Criteria</a>, all <a>digital wallets</a> provide the same APIs for creating and verifying ATP <a>Credential</a> Presentations. <a>Tracing</a> providers integrate these APIs in accordance with the latest <em>OCI Interoperability Profile</em>. Refer to the published <a href="https://www.oc-i.org/resources">OCI resources</a> for details.<br><br>
+    <p>In accordance with the <a href="https://open-credentialing-initiative.github.io/Digital-Wallet-Conformance-Criteria/latest/">Digital Wallet Conformance Criteria</a>, all <a>digital wallets</a> provide the same APIs for creating and verifying ATP <a>Credential</a> Presentations. Tracing providers integrate these APIs in accordance with the latest <em>OCI Interoperability Profile</em>. Refer to the published <a href="https://www.oc-i.org/resources">OCI resources</a> for details.<br><br>
       Tracing providers SHALL only integrate wallets that are compliant with the OCI digital wallet conformance criteria. The OCI conformance programme lays out how compliance with the OCI digital wallet conformance criteria will be verified and compliant wallets made well-known to the Tracing provider. <br><br>      
       Tracing providers SHALL integrate the digital wallet REST APIs by establishing a secure authentication via OAuth2.0 bearer token and encryption via SSL TLS v1.2+. The Connection SHALL be REST on HTTPS.<br><br>
       Tracing providers SHALL have measures in place to facilitate their access to the following wallet APIs:</p>
@@ -156,8 +157,9 @@
     <p>There are multiple potential Tracing-wallet combinations. Interoperability testing supports the frictionless implementation of technology standards in the context of identity and trust as an ecosystem solution.  OCI recommends use of its OCI’s published test case resources when designing interoperability test activities. Each OCI Digital Wallet provider SHALL ensure interoperability with other OCI Digital Wallets enabling Tracing solution providers to seamlessly integrate with OCI Digital Wallet providers according to the APIs defined in the OCI Digital Wallet Conformance Criteria.</p>
   </section> 
   <section>
-    <h2>End-to-end Correlatability</h2>
-    <p>The Tracing provider SHALL send the <a>corrUUID</a> received in the Tracing request and response messages to the digital wallet (via the Wallet API).</p>
+    <h2>End-to-end Correlation</h2>
+    <p>The Tracing provider SHALL send the TIRequestID or TIResponseID (as applicable) in the Tracing request and response messages to the digital wallet (via the Wallet API) as the <a>corrUUID</a> when requesting the digital wallet to generate a verifiable presentation of a verifiable credential. Refer to <a href="https://open-credentialing-initiative.github.io/Digital-Wallet-Conformance-Criteria/latest/#api-to-generate-a-verifiable-presentation-of-atp-credential">OCI Digital Wallet Conformance Criteria</a> for Generating a <a href="https://open-credentialing-initiative.github.io/Tracing-Conformance-Criteria/latest/index.html#dfn-verifiable-presentation">Verifiable Presentation API</a>.
+</p>
   </section> 
   <section>
     <h2>Latency Improvements</h2>
